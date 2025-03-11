@@ -1,0 +1,55 @@
+// Sys.range
+function Sys.range 0
+    push argument 1
+    push constant 1
+    lt                // If n <= 1, return 0
+    if-goto RETURN_ZERO
+
+    push argument 0
+    pop pointer 0     // Set THIS to the array base address
+
+    push that 0       // First element
+    pop local 0       // min = array[0]
+    pop local 1       // max = array[0]
+
+    push constant 1
+    pop local 2       // i = 1
+
+    label LOOP
+    push local 2
+    push argument 1
+    lt                // i < n
+    if-goto CONTINUE
+    goto COMPUTE_RANGE
+
+    label CONTINUE
+    push pointer 0
+    push local 2
+    add
+    pop pointer 1     // Set THAT to array[i]
+
+    push local 0
+    push that 0
+    call Sys.min 2
+    pop local 0       // min = Sys.min(min, array[i])
+
+    push local 1
+    push that 0
+    call Sys.max 2
+    pop local 1       // max = Sys.max(max, array[i])
+
+    push local 2
+    push constant 1
+    add
+    pop local 2       // i++
+    goto LOOP
+
+    label COMPUTE_RANGE
+    push local 1
+    push local 0
+    sub               // max - min
+    return
+
+    label RETURN_ZERO
+    push constant 0
+    return

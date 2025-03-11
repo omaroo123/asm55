@@ -1,0 +1,11 @@
+// Sys.max
+function Sys.max 0
+    push argument 0   // Push x
+    push argument 1   // Push y
+    gt                // Compare x > y
+    if-goto RETURN_X  // If x > y, return x
+    push argument 1   // Else, return y
+    return
+    label RETURN_X
+    push argument 0
+    return
