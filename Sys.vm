@@ -80,3 +80,17 @@ function Sys.range 0
     label RETURN_ZERO
     push constant 0
     return
+// Sys.init
+function Sys.init 0
+    push constant 4
+    push constant 2
+    call Sys.min 2    // Should leave 2 on stack
+    push constant 4
+    push constant 2
+    call Sys.max 2    // Should leave 4 on stack
+
+    push constant 500 // Array base address
+    push constant 5   // Array size
+    call Sys.range 2  // Should compute range
+
+    return
