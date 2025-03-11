@@ -1,31 +1,51 @@
 // Sys.vm
-// Implements min, max, and range functions
+// Implements Sys.min, Sys.max, and Sys.range
 
-// Sys.min - Returns the smaller of the two values
+// Sys.init
+// Initializes the program and tests Sys.min, Sys.max, and Sys.range
+function Sys.init 0
+    push constant 4
+    push constant 2
+    call Sys.min 2    // Should leave 2 on stack
+
+    push constant 4
+    push constant 2
+    call Sys.max 2    // Should leave 4 on stack
+
+    push constant 500 // Base address of array
+    push constant 5   // Number of elements
+    call Sys.range 2  // Should compute range
+
+    return
+
+// Sys.min
+// Returns the smaller of the two values
 function Sys.min 0
     push argument 0   // Push x
     push argument 1   // Push y
     lt                // Check if x < y
-    if-goto RETURN_X
+    if-goto RETURN_X  // If x < y, return x
     push argument 1   // Else, return y
     return
     label RETURN_X
     push argument 0
     return
 
-// Sys.max - Returns the larger of the two values
+// Sys.max
+// Returns the larger of the two values
 function Sys.max 0
     push argument 0   // Push x
     push argument 1   // Push y
     gt                // Check if x > y
-    if-goto RETURN_X
+    if-goto RETURN_X  // If x > y, return x
     push argument 1   // Else, return y
     return
     label RETURN_X
     push argument 0
     return
 
-// Sys.range - Computes max(array) - min(array)
+// Sys.range
+// Computes max(array) - min(array)
 function Sys.range 0
     push argument 1
     push constant 1
@@ -33,7 +53,7 @@ function Sys.range 0
     if-goto RETURN_ZERO
 
     push argument 0
-    pop pointer 0     // Base address stored in `THIS`
+    pop pointer 0     // Set THIS to the array base address
 
     push that 0       // First element
     pop local 0       // min = array[0]
@@ -53,7 +73,7 @@ function Sys.range 0
     push pointer 0
     push local 2
     add
-    pop pointer 1     // Set `THAT` to array[i]
+    pop pointer 1     // Set THAT to array[i]
 
     push local 0
     push that 0
@@ -79,18 +99,4 @@ function Sys.range 0
 
     label RETURN_ZERO
     push constant 0
-    return
-// Sys.init
-function Sys.init 0
-    push constant 4
-    push constant 2
-    call Sys.min 2    // Should leave 2 on stack
-    push constant 4
-    push constant 2
-    call Sys.max 2    // Should leave 4 on stack
-
-    push constant 500 // Array base address
-    push constant 5   // Array size
-    call Sys.range 2  // Should compute range
-
     return

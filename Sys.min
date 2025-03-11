@@ -2,8 +2,8 @@
 function Sys.min 0
     push argument 0   // Push x
     push argument 1   // Push y
-    lt                // Compare x < y
-    if-goto RETURN_X  // If x < y, return x
+    lt                // Check if x < y
+    if-goto RETURN_X
     push argument 1   // Else, return y
     return
     label RETURN_X
