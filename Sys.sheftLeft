@@ -1,0 +1,18 @@
+// Sys.shiftLeft
+// Shifts the first argument left by the number of positions specified by the second argument.
+function Sys.shiftLeft 0
+    push argument 0  // x
+    push constant 1  // Used for doubling
+    push argument 1  // y (number of times to shift)
+    label SHIFT_LOOP
+    if-goto SHIFT_CONTINUE
+    goto SHIFT_END
+    label SHIFT_CONTINUE
+    add             // x = x * 2
+    push argument 1
+    push constant 1
+    sub
+    pop argument 1  // y -= 1
+    goto SHIFT_LOOP
+    label SHIFT_END
+    return

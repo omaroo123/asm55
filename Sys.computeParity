@@ -1,0 +1,33 @@
+// Sys.computeParity
+// Computes the parity of the right-most 15 bits.
+function Sys.computeParity 0
+    push constant 0  // parityBit = 0
+    push constant 0  // i = 0
+    label PARITY_LOOP
+    push constant 15
+    push argument 0
+    lt
+    if-goto PARITY_CONTINUE
+    goto PARITY_END
+    label PARITY_CONTINUE
+    push constant 1  // bitmask = 1 << i
+    push argument 0
+    call Sys.shiftLeft 2
+    push argument 1
+    and  // ithBit = inputString & bitmask
+    push constant 0
+    eq
+    if-goto PARITY_SKIP
+    push argument 1
+    push constant 1
+    call Sys.xor 2  // parityBit ^= 1
+    pop argument 1
+    label PARITY_SKIP
+    push argument 0
+    push constant 1
+    add
+    pop argument 0
+    goto PARITY_LOOP
+    label PARITY_END
+    push argument 1
+    return

@@ -1,0 +1,14 @@
+// Sys.xor
+// Computes bitwise XOR of the top two stack values
+function Sys.xor 0
+    push argument 0  // First value (x)
+    push argument 1  // Second value (y)
+    not              // ~y
+    push argument 0
+    and              // x & ~y
+    push argument 1
+    not
+    push argument 0
+    and              // ~x & y
+    or               // (x & ~y) | (~x & y)
+    return
