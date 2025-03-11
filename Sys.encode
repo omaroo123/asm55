@@ -1,9 +1,0 @@
-// Sys.encode
-// Encodes input by setting the most significant bit to the computed parity bit.
-function Sys.encode 0
-    push argument 0
-    call Sys.computeParity 1  // Compute parity
-    push argument 0
-    push constant 32768  // 10000000 00000000 in binary (most significant bit)
-    call Sys.xor 2  // Set or clear the leftmost bit
-    return
